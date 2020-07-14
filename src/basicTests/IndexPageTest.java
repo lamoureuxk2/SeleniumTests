@@ -14,12 +14,22 @@ import org.junit.runner.Description;
 import org.openqa.selenium.*;
 import org.openqa.selenium.remote.*;
 
+/**
+ * To write a test for a new page, copy all the data from this up until the first @Test
+ * Then replace the PAGE_TO_TEST variable with the appropriate page.
+ * Write @Test methods specific to the page you are testing
+ * 
+ * Ensure the PATH_TO_GECKODRIVER is set to your path to geckodriver.exe
+ * @author Karl
+ *
+ */
 public class IndexPageTest {
 	
-	//Location of your gecko driver executable
+	//Location of your geckodriver executable
 	public static final String PATH_TO_GECKODRIVER = "C:\\Selenium\\geckodriver.exe";
 	public static final String PAGE_TO_TEST = "https://agile-warriors.bubbleapps.io/version-test";
 	private static final String LOG_DIR = "logs/";
+	private static final String TEST_NAME = "IndexPageTest";
 	private static StringBuilder builder = new StringBuilder();
 	private static PrintWriter writer;
 	
@@ -27,14 +37,6 @@ public class IndexPageTest {
 	
 	private static final String EOL = 
 	        System.getProperty("line.separator");
-
-//	public static void main(String[] args) {
-//		System.setProperty("webdriver.gecko.driver", PATH_TO_GECKODRIVER);
-//		driver = new FirefoxDriver();
-//		
-//		System.out.println("Assessment Link works: " + testAssessmentLink());
-//	
-//	}
 	
 	@BeforeClass
 	public static void beforeClass() {
@@ -45,7 +47,7 @@ public class IndexPageTest {
 			timestamp = timestamp.replace(" ", "_");
 			timestamp = timestamp.replace(":", "-");
 			timestamp = timestamp.replace(".", "-");
-			writer = new PrintWriter(LOG_DIR + timestamp + ".log");
+			writer = new PrintWriter(LOG_DIR + TEST_NAME + "__" + timestamp + ".log");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 			System.exit(1);
@@ -97,15 +99,4 @@ public class IndexPageTest {
 		Assert.assertEquals(url, "https://agile-warriors.bubbleapps.io/version-test/maturity_assessment");
 	}
 	
-	 @Test
-	    public void testFails() {
-	        // test
-	        Assert.fail();
-	    }
-	
-	 @Test
-	    public void testSucceeds() {
-	        // test
-	    }
-
 }
