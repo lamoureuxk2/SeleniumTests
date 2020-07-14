@@ -21,6 +21,9 @@ import org.openqa.selenium.remote.*;
  * 
  * Ensure the PATH_TO_GECKODRIVER is set to your path to geckodriver.exe
  * @author Karl
+ * 
+ * Much of the code for logging is taken from 
+ * https://garygregory.wordpress.com/2015/09/14/the-art-of-test-driven-development-logging-junit-test-results/
  *
  */
 public class IndexPageTest {
@@ -38,6 +41,9 @@ public class IndexPageTest {
 	private static final String EOL = 
 	        System.getProperty("line.separator");
 	
+	/*
+	 * Before all tests, set the geckodriver, webdriver, and Printwriter for logging
+	 */
 	@BeforeClass
 	public static void beforeClass() {
 		System.setProperty("webdriver.gecko.driver", PATH_TO_GECKODRIVER);
@@ -54,6 +60,9 @@ public class IndexPageTest {
 		}
 	}
 	
+	/*
+	 * This is what determines what is written for logging after each test
+	 */
 	@Rule
     public TestWatcher watchman = new TestWatcher() {
  
@@ -82,6 +91,9 @@ public class IndexPageTest {
         }
     };
 	
+    /**
+     * After all tests, write the logs to the logs folder and to console
+     */
 	@AfterClass
     public static void afterClass() {
         System.out.print(builder);
@@ -89,6 +101,9 @@ public class IndexPageTest {
         writer.close();
     }
 	
+	/**
+	 * This test is to see if the assessment link goes to the assessment page
+	 */
 	@Test
 	public void testAssessmentLink() {
 		
