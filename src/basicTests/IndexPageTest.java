@@ -30,7 +30,7 @@ public class IndexPageTest {
 	
 	//Location of your geckodriver executable
 	public static final String PATH_TO_GECKODRIVER = "C:\\Selenium\\geckodriver.exe";
-	public static final String PAGE_TO_TEST = "https://agile-warriors.bubbleapps.io/version-test";
+	public static final String PAGE_TO_TEST = "https://agile-warriors.bubbleapps.io/";
 	private static final String LOG_DIR = "logs/";
 	private static final String TEST_NAME = "IndexPageTest";
 	private static StringBuilder builder = new StringBuilder();
@@ -111,7 +111,12 @@ public class IndexPageTest {
 		WebElement assessmentLink = driver.findElement(By.id("AssessmentLink"));
 		assessmentLink.click();
 		String url = driver.getCurrentUrl();
-		Assert.assertEquals(url, "https://agile-warriors.bubbleapps.io/version-test/maturity_assessment");
+		Assert.assertEquals(url, "https://agile-warriors.bubbleapps.io/maturity_assessment");
+	}
+	
+	@Test
+	public void testConsultingLink() {
+		
 	}
 	
 }
