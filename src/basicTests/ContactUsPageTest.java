@@ -14,11 +14,13 @@ import org.junit.runner.Description;
 import org.openqa.selenium.*;
 
 
-public class IndexPageTest extends AbstractPageTest {
+public class ContactUsPageTest extends AbstractPageTest {
 
 	@BeforeClass
 	public static void beforeClassSetPageSpecifics() {
-		TEST_NAME = "IndexPageTest";
+		TEST_NAME = "ContactUsPageTest";
+		
+		//TODO: Put real page url in
 		PAGE_TO_TEST = "https://agile-warriors.bubbleapps.io/";
 	}
 }

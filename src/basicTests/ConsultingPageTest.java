@@ -14,11 +14,11 @@ import org.junit.runner.Description;
 import org.openqa.selenium.*;
 
 
-public class IndexPageTest extends AbstractPageTest {
+public class ConsultingPageTest extends AbstractPageTest {
 
 	@BeforeClass
 	public static void beforeClassSetPageSpecifics() {
-		TEST_NAME = "IndexPageTest";
-		PAGE_TO_TEST = "https://agile-warriors.bubbleapps.io/";
+		TEST_NAME = "ConsultingPageTest";
+		PAGE_TO_TEST = "https://agile-warriors.bubbleapps.io/consulting";
 	}
 }
