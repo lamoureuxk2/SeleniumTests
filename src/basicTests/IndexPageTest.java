@@ -3,10 +3,13 @@ package basicTests;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Actions;
+import java.util.concurrent.TimeUnit;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
+import java.util.*;
 
 import org.junit.*;
 import org.junit.rules.TestWatcher;
@@ -34,6 +37,7 @@ public class IndexPageTest {
 	private static final String LOG_DIR = "logs/";
 	private static final String TEST_NAME = "IndexPageTest";
 	private static StringBuilder builder = new StringBuilder();
+	private static StringBuilder errorLogs = new StringBuilder();
 	private static PrintWriter writer;
 	
 	static WebDriver driver;
@@ -48,6 +52,7 @@ public class IndexPageTest {
 	public static void beforeClass() {
 		System.setProperty("webdriver.gecko.driver", PATH_TO_GECKODRIVER);
 		driver = new FirefoxDriver();
+		//driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		try {
 			String timestamp = new Timestamp(System.currentTimeMillis()).toString();
 			timestamp = timestamp.replace(" ", "_");
@@ -78,6 +83,7 @@ public class IndexPageTest {
             }
             builder.append(" FAIL");
             builder.append(EOL);
+            builder.append(errorLogs);
         }
  
         @Override
@@ -99,24 +105,80 @@ public class IndexPageTest {
         System.out.print(builder);
         writer.print(builder);
         writer.close();
+        driver.quit();
     }
 	
 	/**
-	 * This test is to see if the assessment link goes to the assessment page
+	 * Test all links on a page
+	 * Fails if any link fails to load a page
+	 * Logs any time that the attempted url does not match the reached url
 	 */
 	@Test
-	public void testAssessmentLink() {
-		
+	public void testAllLinks() {
 		driver.get(PAGE_TO_TEST);
-		WebElement assessmentLink = driver.findElement(By.id("AssessmentLink"));
-		assessmentLink.click();
-		String url = driver.getCurrentUrl();
-		Assert.assertEquals(url, "https://agile-warriors.bubbleapps.io/maturity_assessment");
+		List<WebElement> allLinks = driver.findElements(By.tagName("a"));
+		String[] handles = new String[2];
+		
+		for(int index = 0; index < allLinks.size(); index++) {
+			WebElement link = allLinks.get(index);
+			String correctUrl = link.getAttribute("href");
+			
+			((JavascriptExecutor) driver).executeScript
+			("arguments[0].scrollIntoView(true);", link);
+			try {
+				Thread.sleep(200);
+			} catch (InterruptedException e1) {
+				e1.printStackTrace();
+			} 
+			
+			//This is a shift+click for new tab
+			Actions actions = new Actions(driver);
+			actions.keyDown(Keys.SHIFT)
+		    .click(link)
+		    .keyUp(Keys.SHIFT)
+		    .build()
+		    .perform();
+			
+			try {
+				Thread.sleep(200);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			
+			handles = driver.getWindowHandles().toArray(handles);
+			
+			if(handles[1] == null) {
+				System.out.println("Tried to go to: " + correctUrl);
+				
+				Assert.fail("Tried to go to: " + correctUrl + " and failed");
+			}
+			
+			System.out.println(handles[0] + " " + handles[1]);
+			driver.switchTo().window(handles[1]);
+			
+			
+			try {
+				Thread.sleep(5000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			
+			String currentUrl = driver.getCurrentUrl();
+			if(!currentUrl.equals(correctUrl)) {
+				errorLogs.append("URL mismatch: Tried to go to " + correctUrl
+						+ " went to " + currentUrl + EOL);
+				
+			}
+			//Assert.assertEquals(correctUrl, currentUrl);
+			System.out.println("Link Successful");
+			// close window
+			driver.close();
+			driver.switchTo().window(handles[0]);
+			
+		}
+		
 	}
 	
-	@Test
-	public void testConsultingLink() {
-		
-	}
+	
 	
 }
