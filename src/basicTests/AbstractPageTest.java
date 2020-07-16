@@ -35,6 +35,8 @@ public abstract class AbstractPageTest {
 	protected static final String PATH_TO_GECKODRIVER = "C:\\Selenium\\geckodriver.exe";
 	protected static final String LOG_DIR = "logs/";
 	protected static StringBuilder builder = new StringBuilder();
+	
+	//Keeps track of any custom error message 
 	protected static StringBuilder errorLogs = new StringBuilder();
 	protected static PrintWriter writer;
 	
@@ -82,6 +84,9 @@ public abstract class AbstractPageTest {
             builder.append(" FAIL");
             builder.append(EOL);
             builder.append(errorLogs);
+            
+            //Clear errorLogs after each use
+            errorLogs = new StringBuilder(); 
         }
  
         @Override
@@ -150,7 +155,7 @@ public abstract class AbstractPageTest {
 			if(handles[1] == null) {
 				System.out.println("Tried to go to: " + correctUrl);
 				
-				Assert.fail("Tried to go to: " + correctUrl + " and failed");
+				errorLogs.append(("Tried to go to: " + correctUrl + " and failed"));
 			}
 			
 			System.out.println(handles[0] + " " + handles[1]);
