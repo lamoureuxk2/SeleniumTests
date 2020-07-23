@@ -27,10 +27,10 @@ import org.openqa.selenium.*;
  * https://garygregory.wordpress.com/2015/09/14/the-art-of-test-driven-development-logging-junit-test-results/
  *
  */
-public abstract class AbstractPageTest {
+public class AbstractPageTest {
 	
-	protected static String TEST_NAME;
-	protected static String PAGE_TO_TEST;
+	protected static String TEST_NAME = "AbstractPageTest";
+	protected static String PAGE_TO_TEST = "https://agile-warriors.bubbleapps.io/";
 	//Location of your gecko-driver executable
 	protected static final String PATH_TO_GECKODRIVER = "C:\\Selenium\\geckodriver.exe";
 	protected static final String LOG_DIR = "logs/";
@@ -124,6 +124,11 @@ public abstract class AbstractPageTest {
 	 */
 	public void testLoginButton() {
 		driver.get(PAGE_TO_TEST);
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		WebElement loginButton = driver.findElement(By.id(LOGIN_BUTTON_ID));
 		loginButton.click();
 		WebElement loginPopUp = driver.findElement(By.id(LOGIN_POPUP_ID));
@@ -135,7 +140,7 @@ public abstract class AbstractPageTest {
 		//Click login submit button
 		driver.findElement(By.id(LOGIN_SUBMIT_BUTTON_ID)).click();
 		try {
-			Thread.sleep(1000);
+			Thread.sleep(5000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
