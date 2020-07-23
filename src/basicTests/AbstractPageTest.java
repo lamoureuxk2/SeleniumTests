@@ -121,6 +121,8 @@ public class AbstractPageTest {
 	@Test
 	/**
 	 * Test login and logout
+	 * Login tests if after login, the login pop up still exists (on right webpage) but isnt visible (no login errors)
+	 * Logout tests that the login button is visible after logout (login button is only available when not signed in
 	 */
 	public void testLoginAndLogout() {
 		driver.get(PAGE_TO_TEST);
