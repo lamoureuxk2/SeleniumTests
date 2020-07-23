@@ -120,9 +120,9 @@ public class AbstractPageTest {
 	
 	@Test
 	/**
-	 * Test login button
+	 * Test login and logout
 	 */
-	public void testLoginButton() {
+	public void testLoginAndLogout() {
 		driver.get(PAGE_TO_TEST);
 		try {
 			Thread.sleep(1000);
@@ -149,6 +149,25 @@ public class AbstractPageTest {
 			Assert.fail("Login Stalling");
 		}
 		
+		//go to user page
+		driver.findElement(By.id("MyAccountButton")).click();
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+		driver.findElement(By.id("LogOutButton")).click();
+		
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+		if(!driver.findElement(By.id(LOGIN_BUTTON_ID)).isDisplayed()) {
+			Assert.fail("Logout button not resulting in login button being available");
+		}
 
 	}
 	
