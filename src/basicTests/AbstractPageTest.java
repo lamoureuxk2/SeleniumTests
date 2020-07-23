@@ -34,6 +34,14 @@ public abstract class AbstractPageTest {
 	//Location of your gecko-driver executable
 	protected static final String PATH_TO_GECKODRIVER = "C:\\Selenium\\geckodriver.exe";
 	protected static final String LOG_DIR = "logs/";
+	protected static final String LOGIN_BUTTON_ID = "LoginButton";
+	protected static final String LOGIN_POPUP_ID = "LoginPopUp";
+	protected static final String SIGN_UP_POPUP_ID = "SignUpPopUp";
+	protected static final String LOGIN_SUBMIT_BUTTON_ID = "LoginSubmitButton";
+	protected static final String LOGIN_EMAIL_TEXT_FIELD = "LoginEmailTextField";
+	protected static final String LOGIN_PASSWORD_TEXT_FIELD = "LoginPasswordTextField";
+	protected static final String TEST_EMAIL_ADDRESS = "test@gmail.com";
+	protected static final String TEST_PASSWORD = "Welcome2BU!";
 	protected static StringBuilder builder = new StringBuilder();
 	
 	//Keeps track of any custom error message 
@@ -70,7 +78,6 @@ public abstract class AbstractPageTest {
 	 */
 	@Rule
     public TestWatcher watchman = new TestWatcher() {
- 
         @Override
         protected void failed(Throwable e, Description description) {
         	builder.append(new Timestamp(System.currentTimeMillis())  + " | ");
@@ -110,6 +117,35 @@ public abstract class AbstractPageTest {
         writer.close();
         driver.quit();
     }
+	
+	@Test
+	/**
+	 * Test login button
+	 */
+	public void testLoginButton() {
+		driver.get(PAGE_TO_TEST);
+		WebElement loginButton = driver.findElement(By.id(LOGIN_BUTTON_ID));
+		loginButton.click();
+		WebElement loginPopUp = driver.findElement(By.id(LOGIN_POPUP_ID));
+		WebElement email = driver.findElement(By.id(LOGIN_EMAIL_TEXT_FIELD));
+		WebElement password = driver.findElement(By.id(LOGIN_PASSWORD_TEXT_FIELD));
+		//enter email and password
+		email.sendKeys(TEST_EMAIL_ADDRESS);
+		password.sendKeys(TEST_PASSWORD);
+		//Click login submit button
+		driver.findElement(By.id(LOGIN_SUBMIT_BUTTON_ID)).click();
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+		if(loginPopUp.isDisplayed()) {
+			Assert.fail("Login Stalling");
+		}
+		
+
+	}
 	
 	/**
 	 * Test all links on a page
