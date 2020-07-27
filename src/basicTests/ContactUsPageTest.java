@@ -24,7 +24,6 @@ public class ContactUsPageTest extends AbstractPageTest {
 	public static void beforeClassSetPageSpecifics() {
 		TEST_NAME = "ContactUsPageTest";
 		
-		//TODO: Put real page url in
-		PAGE_TO_TEST = "https://agile-warriors.bubbleapps.io/";
+		PAGE_TO_TEST = "https://agile-warriors.bubbleapps.io/contact_us";
 	}
 }
