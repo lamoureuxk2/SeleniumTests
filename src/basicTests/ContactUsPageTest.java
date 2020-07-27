@@ -13,7 +13,11 @@ import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 import org.openqa.selenium.*;
 
-
+/**
+ * Test for the Contact-Us page of Agile Warriors
+ * @author Karl
+ *
+ */
 public class ContactUsPageTest extends AbstractPageTest {
 
 	@BeforeClass

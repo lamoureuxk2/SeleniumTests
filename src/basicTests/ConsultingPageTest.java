@@ -14,6 +14,11 @@ import org.junit.runner.Description;
 import org.openqa.selenium.*;
 
 
+/**
+ * Test for the Consulting page of Agile Warriors
+ * @author Karl
+ *
+ */
 public class ConsultingPageTest extends AbstractPageTest {
 
 	@BeforeClass
