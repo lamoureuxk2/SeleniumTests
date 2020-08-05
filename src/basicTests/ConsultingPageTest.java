@@ -3,6 +3,7 @@ package basicTests;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.interactions.Actions;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -25,5 +26,7 @@ public class ConsultingPageTest extends AbstractPageTest {
 	public static void beforeClassSetPageSpecifics() {
 		TEST_NAME = "ConsultingPageTest";
 		PAGE_TO_TEST = "https://agile-warriors.bubbleapps.io/consulting";
+		
+		
 	}
 }
