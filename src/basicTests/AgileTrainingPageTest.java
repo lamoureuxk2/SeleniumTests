@@ -14,17 +14,15 @@ import org.junit.runner.Description;
 import org.openqa.selenium.*;
 
 /**
- * Test for the Resources page of Agile Warriors
+ * Test for the Assessment page of Agile Warriors
  * @author Karl
  *
  */
-public class ResourcesPageTest extends AbstractPageTest {
+public class AgileTrainingPageTest extends AbstractPageTest {
 
 	@BeforeClass
 	public static void beforeClassSetPageSpecifics() {
-		TEST_NAME = "ResourcesPageTest";
-		
-		//TODO: Put real page url in
-		PAGE_TO_TEST = "https://agile-warriors.bubbleapps.io/";
+		TEST_NAME = "AgileTrainingPageTest";
+		PAGE_TO_TEST = "https://agile-warriors.bubbleapps.io/agile_training";
 	}
 }
